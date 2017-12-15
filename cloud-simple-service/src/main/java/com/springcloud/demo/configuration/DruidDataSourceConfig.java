@@ -1,12 +1,10 @@
 package com.springcloud.demo.configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,21 +18,22 @@ import javax.sql.DataSource;
  * @create 2017/12/15 14:31
  */
 @Configuration
-@EnableConfigurationProperties(DataSourceProperties.class)
-@MapperScan(basePackages = {"com.springcloud.demo.dao"})
+@ConfigurationProperties(prefix = "spring.datasource")
 public class DruidDataSourceConfig {
     private final Logger logger = LoggerFactory.getLogger(DruidDataSourceConfig.class);
     @Autowired
-    private DataSourceProperties config;
+    private DataSourceProperties dataSourceProperties;
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource druidDataSource() {
+        DataSourceProperties config = dataSourceProperties;
         DruidDataSource  druidDataSource = new DruidDataSource();
+        druidDataSource.setDriverClassName(config.getDriverClassName());
         druidDataSource.setUrl(config.getUrl());
         druidDataSource.setUsername(config.getUsername());
         druidDataSource.setPassword(config.getPassword());
         logger.info("=========data source=============");
+        logger.info(config.getDriverClassName());
         return druidDataSource;
     }
 }

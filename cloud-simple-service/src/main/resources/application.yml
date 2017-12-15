@@ -24,4 +24,4 @@ spring:
     useGlobalDataSourceStat: true
 
 mybatis:
-  mapperLocations: classpath:mapper/*.xml
+  mapperLocations: classpath*:/mapper/*Mapper.xml
