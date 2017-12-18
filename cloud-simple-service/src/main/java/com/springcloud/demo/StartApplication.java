@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 描述：
@@ -14,6 +15,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @create 2017/12/15 15:13
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 @EnableConfigurationProperties(DataSourceProperties.class)
 @MapperScan(basePackages = {"com.springcloud.demo.dao"})
 public class StartApplication {
